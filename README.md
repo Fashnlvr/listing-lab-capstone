@@ -18,3 +18,9 @@ Listing Lab is a guided resale listing MVP that helps online resellers create a 
 
 ## Status
 In progress (Final Project build).
+
+## Links
+
+- GitHub Repository: https://github.com/Fashnlvr/listing-lab-capstone
+- Live Site (GitHub Pages): https://fashnlvr.github.io/listing-lab-capstone/
+
