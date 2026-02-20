@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>New Listing | Listing Lab</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <nav class="wrap nav">
+    <a href="index.html">Home</a>
+    <a href="dashboard.html">Dashboard</a>
+  </nav>
+
+  <main class="wrap grid-2">
+    <section class="card">
+      <h2>Listing Builder</h2>
+      <p class="muted">Fill this out once. Copy it everywhere.</p>
+
+      <div class="meter">
+        <strong>Completeness:</strong>
+        <span id="completenessText">0/4</span>
+      </div>
+
+      <p id="formError" class="error" role="alert"></p>
+
+      <form id="listingForm" class="stack">
+        <label>
+          Item Name (required)
+          <input name="itemName" id="itemName" placeholder="e.g., Abercrombie ribbed tank" required />
+        </label>
+
+        <label>
+          Brand
+          <input name="brand" id="brand" placeholder="e.g., Abercrombie" />
+        </label>
+
+        <div class="row">
+          <label class="grow">
+            Category
+            <select name="category" id="category">
+              <option value="">Select</option>
+              <option value="tops">Tops</option>
+              <option value="bottoms">Bottoms</option>
+              <option value="dresses">Dresses</option>
+              <option value="shoes">Shoes</option>
+              <option value="bags">Bags</option>
+              <option value="outerwear">Outerwear</option>
+            </select>
+          </label>
+
+          <label class="grow">
+            Condition
+            <select name="condition" id="condition">
+              <option value="">Select</option>
+              <option value="new">New</option>
+              <option value="like-new">Like New</option>
+              <option value="good">Good</option>
+              <option value="fair">Fair</option>
+            </select>
+          </label>
+        </div>
+
+        <label>
+          Price (required)
+          <input name="price" id="price" type="number" step="0.01" placeholder="e.g., 28" required />
+        </label>
+
+        <div class="hint">
+          <strong>Suggested Range:</strong>
+          <span id="suggestedRange">—</span>
+          <span id="priceCheck" class="muted"></span>
+        </div>
+
+        <label>
+          Notes / Description
+          <textarea name="notes" id="notes" rows="5" placeholder="Condition details, measurements, flaws, etc."></textarea>
+        </label>
+
+        <div class="row">
+          <button class="btn" type="submit">Save Listing</button>
+          <button class="btn btn-secondary" type="button" id="saveDraftBtn">Save Draft</button>
+          <button class="btn btn-secondary" type="button" id="loadDraftBtn">Load Draft</button>
+          <button class="btn btn-secondary" type="button" id="clearDraftBtn">Clear Draft</button>
+        </div>
+
+        <p class="muted small">
+          Draft saves locally in your browser. Saved listings appear in the Dashboard.
+        </p>
+      </form>
+    </section>
+
+    <aside class="card">
+      <h3>Export Preview</h3>
+      <p class="muted">This is what you’ll copy into platforms.</p>
+
+      <pre id="exportPreview" class="preview"></pre>
+
+      <div class="row">
+        <button class="btn" type="button" id="copyBtn">Copy Summary</button>
+        <a class="btn btn-secondary" href="dashboard.html">Go to Dashboard</a>
+      </div>
+    </aside>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

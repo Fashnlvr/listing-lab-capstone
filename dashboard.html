@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dashboard | Listing Lab</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="new-listing.html">New Listing</a>
+</nav>
+
+<main>
+  <h2>Saved Listings</h2>
+
+  <button id="exportBtn" type="button">Export CSV</button>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Brand</th>
+        <th>Category</th>
+        <th>Condition</th>
+        <th>Price</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="listingsTableBody"></tbody>
+  </table>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
