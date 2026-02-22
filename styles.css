@@ -240,6 +240,21 @@ a:focus-visible {
   text-align:center;
   padding:12px;
 }
+.home-placeholders {
+  gap: 12px;
+}
+.home-placeholder-media {
+  aspect-ratio: 16 / 7;
+  min-height: 110px;
+}
+.home-placeholder-media-hero {
+  aspect-ratio: 16 / 6;
+  min-height: 130px;
+}
+.home-placeholders .listing-photo-initials {
+  min-width: 46px;
+  height: 46px;
+}
 .listing-photo-initials {
   display:inline-flex;
   align-items:center;
