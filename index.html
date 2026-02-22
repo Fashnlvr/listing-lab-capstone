@@ -7,14 +7,30 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header class="wrap">
-    <h1>Listing Lab</h1>
-    <p class="muted">A lightweight workspace to prep resale listings.</p>
-
-    <div class="row">
-      <a class="btn" href="new-listing.html">Create New Listing</a>
-      <a class="btn btn-secondary" href="dashboard.html">Open Dashboard</a>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="site-header">
+    <div class="wrap">
+      <div class="row space-between">
+        <a class="site-title" href="index.html">Listing Lab</a>
+        <nav class="nav" aria-label="Primary">
+          <a href="index.html" aria-current="page">Home</a>
+          <a href="new-listing.html">New Listing</a>
+          <a href="dashboard.html">Dashboard</a>
+        </nav>
+      </div>
     </div>
   </header>
+  <main id="main-content" class="wrap">
+    <section aria-labelledby="home-title">
+      <h1 id="home-title">Listing Lab</h1>
+      <p class="muted">A lightweight workspace to prep resale listings.</p>
+
+      <div class="row" aria-describedby="firstTimeHint">
+        <a class="btn btn-primary-cta" href="new-listing.html">Create New Listing</a>
+        <a class="btn btn-secondary" href="dashboard.html">Open Dashboard</a>
+      </div>
+      <p id="firstTimeHint" class="muted small">New here? Start by creating your first listing.</p>
+    </section>
+  </main>
 </body>
 </html>

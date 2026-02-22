@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Listing Detail | Listing Lab</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <div class="row space-between">
+        <a class="site-title" href="index.html">Listing Lab</a>
+        <nav class="nav" aria-label="Primary">
+          <a href="index.html">Home</a>
+          <a href="new-listing.html">New Listing</a>
+          <a href="dashboard.html">Dashboard</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content" class="wrap">
+    <section class="card stack">
+      <div>
+        <h1 id="listingTitle">Listing</h1>
+        <p id="listingMeta" class="muted"></p>
+      </div>
+
+      <div class="hint">
+        <strong>Prototype Note:</strong>
+        <span class="muted">This page shows the saved listing summary and actions.</span>
+      </div>
+
+      <pre id="detailExport" class="preview" tabindex="0" aria-label="Saved listing export text"></pre>
+
+      <p id="detailMsg" class="muted small" role="status" aria-live="polite"></p>
+
+      <div class="row">
+        <button id="detailCopyBtn" class="btn" type="button">Copy Summary</button>
+        <a class="btn btn-secondary" href="dashboard.html">Back to Dashboard</a>
+        <button id="detailDeleteBtn" class="btn btn-secondary" type="button">Delete Listing</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

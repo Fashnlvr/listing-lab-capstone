@@ -26,7 +26,13 @@ function formatDate(iso) {
 
 function getListings() {
   const raw = localStorage.getItem(LISTINGS_KEY);
-  return raw ? JSON.parse(raw) : [];
+  if (!raw) return [];
+  try {
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
 }
 
 function saveListings(listings) {
@@ -54,7 +60,12 @@ function saveDraft(draft) {
 
 function loadDraft() {
   const raw = localStorage.getItem(DRAFT_KEY);
-  return raw ? JSON.parse(raw) : null;
+  if (!raw) return null;
+  try {
+    return JSON.parse(raw);
+  } catch {
+    return null;
+  }
 }
 
 function clearDraft() {
@@ -187,10 +198,17 @@ function initNewListingPage() {
 
   const form = $("#listingForm");
   const errorBox = $("#formError");
+  const statusBox = $("#formStatus");
   const completenessText = $("#completenessText");
   const suggestedRangeEl = $("#suggestedRange");
   const priceCheckEl = $("#priceCheck");
   const exportPreview = $("#exportPreview");
+  const listingPhotoPlaceholder = $("#listingPhotoPlaceholder");
+  const listingPhotoInitials = $("#listingPhotoInitials");
+  const listingCardTitle = $("#listingCardTitle");
+  const listingCardMeta = $("#listingCardMeta");
+  const listingCardPrice = $("#listingCardPrice");
+  const listingCardNotes = $("#listingCardNotes");
 
   const fields = {
     itemName: $("#itemName"),
@@ -200,6 +218,16 @@ function initNewListingPage() {
     price: $("#price"),
     notes: $("#notes"),
   };
+
+  function setError(message) {
+    errorBox.textContent = message || "";
+    if (message) statusBox.textContent = "";
+  }
+
+  function setStatus(message) {
+    statusBox.textContent = message || "";
+    if (message) errorBox.textContent = "";
+  }
 
   function getFormState() {
     const priceNum = Number(fields.price.value);
@@ -246,6 +274,29 @@ function initNewListingPage() {
     const check = isPriceValid(state.price, range);
     priceCheckEl.textContent = check.msg;
 
+    const title = state.itemName || "Untitled item";
+    const brand = state.brand || "No brand";
+    const category = state.category ? prettyCategory(state.category) : "No category";
+    const condition = state.condition ? prettyCondition(state.condition) : "No condition";
+    const price = Number.isFinite(state.price) && state.price > 0 ? `$${state.price.toFixed(2)}` : "$0.00";
+    const notesPreview = state.notes || "Description preview will appear here.";
+    const initials = (state.itemName || "LL")
+      .trim()
+      .split(/\s+/)
+      .filter(Boolean)
+      .slice(0, 2)
+      .map(word => word[0]?.toUpperCase() || "")
+      .join("") || "LL";
+
+    if (listingCardTitle) listingCardTitle.textContent = title;
+    if (listingCardMeta) listingCardMeta.textContent = `${brand} • ${category} • ${condition}`;
+    if (listingCardPrice) listingCardPrice.textContent = price;
+    if (listingCardNotes) listingCardNotes.textContent = notesPreview;
+    if (listingPhotoInitials) listingPhotoInitials.textContent = initials;
+    if (listingPhotoPlaceholder) {
+      listingPhotoPlaceholder.setAttribute("aria-label", `Placeholder photo for ${title}`);
+    }
+
     // live export preview
     exportPreview.textContent = buildExportSummary(state);
   }
@@ -262,40 +313,42 @@ function initNewListingPage() {
   // Draft controls (POC behavior)
   $("#saveDraftBtn").addEventListener("click", () => {
     saveDraft(getFormState());
-    errorBox.textContent = "";
+    setStatus("Draft saved.");
   });
 
   $("#loadDraftBtn").addEventListener("click", () => {
     const d = loadDraft();
     if (!d) {
-      errorBox.textContent = "No draft found.";
+      setError("No draft found.");
       return;
     }
     setFormState(d);
-    errorBox.textContent = "";
+    setStatus("Draft loaded.");
     updatePricingAndPreview();
   });
 
   $("#clearDraftBtn").addEventListener("click", () => {
     clearDraft();
-    errorBox.textContent = "Draft cleared.";
+    setStatus("Draft cleared.");
   });
 
   // Copy export preview
   $("#copyBtn").addEventListener("click", async () => {
     const ok = await copyText(exportPreview.textContent || "");
-    errorBox.textContent = ok ? "Copied." : "Copy failed. Try selecting the text manually.";
+    if (ok) setStatus("Summary copied.");
+    else setError("Copy failed. Try selecting the text manually.");
   });
 
   // Save listing (MVP flow)
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-    errorBox.textContent = "";
+    setError("");
+    setStatus("");
 
     const state = getFormState();
 
-    if (!state.itemName) return (errorBox.textContent = "Item Name is required.");
-    if (!Number.isFinite(state.price) || state.price <= 0) return (errorBox.textContent = "Enter a valid price.");
+    if (!state.itemName) return setError("Item Name is required.");
+    if (!Number.isFinite(state.price) || state.price <= 0) return setError("Enter a valid price.");
 
     const listing = {
       id: uid(),
@@ -319,6 +372,7 @@ function initDashboardPage() {
 
   const tbody = $("#listingsTableBody");
   const emptyState = $("#emptyState");
+  const dashboardStatus = $("#dashboardStatus");
 
   function render() {
     const listings = getListings();
@@ -342,12 +396,14 @@ function initDashboardPage() {
         <td>$${Number(l.price).toFixed(2)}</td>
         <td>${escapeHtml(formatDate(l.createdAt))}</td>
         <td>
-          <button class="link-btn" data-del="${escapeHtml(l.id)}">Delete</button>
+          <button class="link-btn" data-del="${escapeHtml(l.id)}" aria-label="Delete ${escapeHtml(l.itemName || "listing")}">Delete</button>
         </td>
       `;
 
       tr.querySelector("[data-del]").addEventListener("click", () => {
+        if (!window.confirm(`Delete "${l.itemName || "this listing"}"?`)) return;
         removeListing(l.id);
+        dashboardStatus.textContent = `${l.itemName || "Listing"} deleted.`;
         render();
       });
 
@@ -358,7 +414,15 @@ function initDashboardPage() {
   render();
 
   const exportBtn = $("#exportBtn");
-  exportBtn.addEventListener("click", () => exportCSV(getListings()));
+  exportBtn.addEventListener("click", () => {
+    const listings = getListings();
+    if (!listings.length) {
+      dashboardStatus.textContent = "No listings to export yet.";
+      return;
+    }
+    exportCSV(listings);
+    dashboardStatus.textContent = "CSV export started.";
+  });
 }
 
 // ===============================
@@ -400,6 +464,7 @@ function initListingDetailPage() {
   });
 
   $("#detailDeleteBtn").addEventListener("click", () => {
+    if (!window.confirm(`Delete "${listing.itemName || "this listing"}"?`)) return;
     removeListing(listing.id);
     window.location.href = "dashboard.html";
   });

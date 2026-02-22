@@ -7,22 +7,36 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <nav class="wrap nav">
-    <a href="index.html">Home</a>
-    <a href="dashboard.html">Dashboard</a>
-  </nav>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="site-header">
+    <div class="wrap">
+      <div class="row space-between">
+        <a class="site-title" href="index.html">Listing Lab</a>
+        <nav class="nav" aria-label="Primary">
+          <a href="index.html">Home</a>
+          <a href="new-listing.html" aria-current="page">New Listing</a>
+          <a href="dashboard.html">Dashboard</a>
+        </nav>
+      </div>
+    </div>
+  </header>
 
-  <main class="wrap grid-2">
-    <section class="card">
-      <h2>Listing Builder</h2>
-      <p class="muted">Fill this out once. Copy it everywhere.</p>
-
-      <div class="meter">
-        <strong>Completeness:</strong>
-        <span id="completenessText">0/4</span>
+  <main id="main-content" class="wrap grid-2 listing-workspace">
+    <section class="card workspace-panel workspace-panel-builder">
+      <div class="panel-header">
+        <h2>Listing Builder</h2>
+        <p class="muted">Fill this out once. Copy it everywhere.</p>
       </div>
 
-      <p id="formError" class="error" role="alert"></p>
+      <div class="panel-status stack-compact">
+        <div class="meter" role="status" aria-live="polite" aria-atomic="true">
+          <strong>Completeness:</strong>
+          <span id="completenessText">0/4</span>
+        </div>
+
+        <p id="formError" class="error" role="alert"></p>
+        <p id="formStatus" class="muted small" role="status" aria-live="polite"></p>
+      </div>
 
       <form id="listingForm" class="stack">
         <label>
@@ -66,7 +80,7 @@
           <input name="price" id="price" type="number" step="0.01" placeholder="e.g., 28" required />
         </label>
 
-        <div class="hint">
+        <div class="hint" role="status" aria-live="polite" aria-atomic="true">
           <strong>Suggested Range:</strong>
           <span id="suggestedRange">—</span>
           <span id="priceCheck" class="muted"></span>
@@ -90,13 +104,41 @@
       </form>
     </section>
 
-    <aside class="card">
-      <h3>Export Preview</h3>
-      <p class="muted">This is what you’ll copy into platforms.</p>
+    <aside class="card workspace-panel workspace-panel-preview">
+      <div class="panel-header">
+        <h2>Listing Preview</h2>
+        <p class="muted">A full listing concept with a photo placeholder (no upload required).</p>
+      </div>
 
-      <pre id="exportPreview" class="preview"></pre>
+      <div class="panel-status">
+        <div class="hint">
+          <strong>Live Preview:</strong>
+          <span class="muted">Updates as you type.</span>
+        </div>
+      </div>
 
-      <div class="row">
+      <section class="listing-concept" aria-label="Listing concept preview">
+        <div id="listingPhotoPlaceholder" class="listing-photo-placeholder" role="img" aria-label="Placeholder photo for listing preview">
+          <span id="listingPhotoInitials" class="listing-photo-initials">LL</span>
+          <span class="small muted">Photo Placeholder</span>
+        </div>
+
+        <div class="stack">
+          <p id="listingCardTitle" class="listing-card-title">Untitled item</p>
+          <p id="listingCardMeta" class="muted small">Brand • Category • Condition</p>
+          <p id="listingCardPrice" class="listing-card-price">$0.00</p>
+          <p id="listingCardNotes" class="muted small">Description preview will appear here.</p>
+        </div>
+      </section>
+
+      <div class="panel-subhead">
+        <h3>Export Text</h3>
+        <p class="muted">This is what you’ll copy into platforms.</p>
+      </div>
+
+      <pre id="exportPreview" class="preview" tabindex="0" aria-label="Export preview text"></pre>
+
+      <div class="row preview-actions">
         <button class="btn" type="button" id="copyBtn">Copy Summary</button>
         <a class="btn btn-secondary" href="dashboard.html">Go to Dashboard</a>
       </div>

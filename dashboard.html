@@ -7,26 +7,42 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
 
-<nav>
-  <a href="index.html">Home</a>
-  <a href="new-listing.html">New Listing</a>
-</nav>
+<header class="site-header">
+  <div class="wrap">
+    <div class="row space-between">
+      <a class="site-title" href="index.html">Listing Lab</a>
+      <nav class="nav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="new-listing.html">New Listing</a>
+        <a href="dashboard.html" aria-current="page">Dashboard</a>
+      </nav>
+    </div>
+  </div>
+</header>
 
-<main>
-  <h2>Saved Listings</h2>
+<main id="main-content" class="wrap">
+  <h1>Saved Listings</h1>
 
-  <button id="exportBtn" type="button">Export CSV</button>
+  <div class="row">
+    <button id="exportBtn" class="btn" type="button">Export CSV</button>
+    <a class="btn btn-secondary" href="new-listing.html">Create New Listing</a>
+  </div>
+  <p id="dashboardStatus" class="muted small" role="status" aria-live="polite"></p>
+  <p id="emptyState" class="muted"></p>
 
   <table>
+    <caption class="sr-only">Saved listings with item details, date, and delete action</caption>
     <thead>
       <tr>
-        <th>Title</th>
-        <th>Brand</th>
-        <th>Category</th>
-        <th>Condition</th>
-        <th>Price</th>
-        <th>Action</th>
+        <th scope="col">Title</th>
+        <th scope="col">Brand</th>
+        <th scope="col">Category</th>
+        <th scope="col">Condition</th>
+        <th scope="col">Price</th>
+        <th scope="col">Created</th>
+        <th scope="col">Action</th>
       </tr>
     </thead>
     <tbody id="listingsTableBody"></tbody>
