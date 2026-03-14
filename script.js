@@ -581,16 +581,6 @@ function initNewListingPage() {
       $("#listingPhotoPlaceholder2"),
       $("#listingPhotoPlaceholder3"),
     ].filter(Boolean),
-    listingPreviewImages: [
-      $("#listingPreviewImage1"),
-      $("#listingPreviewImage2"),
-      $("#listingPreviewImage3"),
-    ].filter(Boolean),
-    listingPhotoInitials: [
-      $("#listingPhotoInitials1"),
-      $("#listingPhotoInitials2"),
-      $("#listingPhotoInitials3"),
-    ].filter(Boolean),
     listingCardTitle: $("#listingCardTitle"),
     listingCardMeta: $("#listingCardMeta"),
     listingCardPrice: $("#listingCardPrice"),
@@ -619,8 +609,6 @@ function initNewListingPage() {
   };
 
   let latestCompMedian = null;
-  let photoQueryCache = "";
-  let photoDebounce = null;
 
   function setError(message) {
     nodes.formError.textContent = message || "";
@@ -799,20 +787,10 @@ function initNewListingPage() {
     const condition = prettyCondition(state.condition);
     const price = Number.isFinite(state.price) && state.price > 0 ? `$${state.price.toFixed(2)}` : "$0.00";
 
-    const initials = title
-      .split(/\s+/)
-      .filter(Boolean)
-      .slice(0, 2)
-      .map((chunk) => chunk[0]?.toUpperCase() || "")
-      .join("") || "LL";
-
     nodes.listingCardTitle.textContent = title;
     nodes.listingCardMeta.textContent = `${brand} | ${category} | ${condition}`;
     nodes.listingCardPrice.textContent = price;
     nodes.listingCardNotes.textContent = state.notes || "Description preview will appear here.";
-    nodes.listingPhotoInitials.forEach((initialNode) => {
-      initialNode.textContent = initials;
-    });
     nodes.listingPhotoPlaceholders.forEach((placeholderNode, idx) => {
       placeholderNode.setAttribute("aria-label", `Listing preview ${idx + 1} for ${title}`);
     });
@@ -823,52 +801,7 @@ function initNewListingPage() {
     }
 
     nodes.exportPreview.textContent = buildExportSummary(state);
-    updateAutoPreviewImage(state);
 
-  }
-
-  function updateAutoPreviewImage(state) {
-    if (!nodes.listingPreviewImages.length || !nodes.listingPhotoPlaceholders.length) return;
-
-    const query = [state.brand, state.itemName, state.category ? prettyCategory(state.category) : ""]
-      .filter(Boolean)
-      .join(" ")
-      .trim();
-
-    if (!query) {
-      nodes.listingPreviewImages.forEach((imgNode, idx) => {
-        imgNode.src = "";
-        imgNode.classList.add("d-none");
-        nodes.listingPhotoPlaceholders[idx]?.classList.remove("has-image");
-      });
-      photoQueryCache = "";
-      return;
-    }
-
-    if (query === photoQueryCache) return;
-    photoQueryCache = query;
-
-    if (photoDebounce) window.clearTimeout(photoDebounce);
-    photoDebounce = window.setTimeout(() => {
-      const photoQueries = [
-        `${query},product`,
-        `${query},closeup`,
-        `${query},detail`,
-      ];
-
-      nodes.listingPreviewImages.forEach((imgNode, idx) => {
-        const source = `https://source.unsplash.com/480x360/?${encodeURIComponent(photoQueries[idx] || photoQueries[0])}&sig=${idx + 1}`;
-        imgNode.onload = () => {
-          nodes.listingPhotoPlaceholders[idx]?.classList.add("has-image");
-          imgNode.classList.remove("d-none");
-        };
-        imgNode.onerror = () => {
-          imgNode.classList.add("d-none");
-          nodes.listingPhotoPlaceholders[idx]?.classList.remove("has-image");
-        };
-        imgNode.src = source;
-      });
-    }, 350);
   }
 
   function buildCompQuery(state) {

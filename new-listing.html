@@ -213,6 +213,7 @@
               <div class="mb-3">
                 <label class="form-label" for="notes">Description</label>
                 <textarea class="form-control" name="notes" id="notes" rows="3" placeholder="Add condition notes, measurements, materials, flaws, and shipping details."></textarea>
+                <p class="form-text mb-1">Measurements are strongly preferred for all listings.</p>
                 <div class="d-flex flex-wrap gap-2 mt-2">
                   <button class="btn btn-outline-secondary btn-sm" type="button" id="generateDescriptionBtn">Generate Description</button>
                 </div>
@@ -251,16 +252,37 @@
             <h2 class="h4 mb-3">Live Preview</h2>
             <div class="preview-photo-grid mb-3">
               <div class="placeholder-photo" id="listingPhotoPlaceholder1" role="img" aria-label="Listing preview image 1">
-                <img id="listingPreviewImage1" class="d-none" alt="Auto-selected preview image 1 based on listing details" />
-                <span id="listingPhotoInitials1" class="preview-initials">LL</span>
+                <div class="preview-guidance-wrap">
+                  <p class="preview-guidance-title mb-2">Photo 1</p>
+                  <p class="preview-guidance-icon mb-2" aria-hidden="true"><i class="bi bi-image"></i></p>
+                  <ul class="preview-guidance-list mb-0">
+                    <li>Main view</li>
+                    <li>Centered</li>
+                    <li>Bright light</li>
+                  </ul>
+                </div>
               </div>
               <div class="placeholder-photo" id="listingPhotoPlaceholder2" role="img" aria-label="Listing preview image 2">
-                <img id="listingPreviewImage2" class="d-none" alt="Auto-selected preview image 2 based on listing details" />
-                <span id="listingPhotoInitials2" class="preview-initials">LL</span>
+                <div class="preview-guidance-wrap">
+                  <p class="preview-guidance-title mb-2">Photo 2</p>
+                  <p class="preview-guidance-icon mb-2" aria-hidden="true"><i class="bi bi-image"></i></p>
+                  <ul class="preview-guidance-list mb-0">
+                    <li>Tag close-up</li>
+                    <li>Size shown</li>
+                    <li>Text clear</li>
+                  </ul>
+                </div>
               </div>
               <div class="placeholder-photo" id="listingPhotoPlaceholder3" role="img" aria-label="Listing preview image 3">
-                <img id="listingPreviewImage3" class="d-none" alt="Auto-selected preview image 3 based on listing details" />
-                <span id="listingPhotoInitials3" class="preview-initials">LL</span>
+                <div class="preview-guidance-wrap">
+                  <p class="preview-guidance-title mb-2">Photo 3</p>
+                  <p class="preview-guidance-icon mb-2" aria-hidden="true"><i class="bi bi-image"></i></p>
+                  <ul class="preview-guidance-list mb-0">
+                    <li>Detail shot</li>
+                    <li>Show flaw</li>
+                    <li>Zoomed in</li>
+                  </ul>
+                </div>
               </div>
             </div>
             <p class="small text-secondary mb-2">Photo preview auto-populates from your listing details (no upload required).</p>
