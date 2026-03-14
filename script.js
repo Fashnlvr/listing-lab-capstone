@@ -1248,7 +1248,7 @@ function initFeaturesPage() {
   if (!pageHas("#featureStatusList")) return;
 
   const items = [
-    { label: "5 essential required inputs in Listing Builder", ok: true },
+    { label: "5 essential required inputs in Create Listing", ok: true },
     { label: "Formula pricing helper available", ok: typeof getSuggestedRange === "function" },
     { label: "eBay comps capability enabled", ok: ENABLE_LIVE_EBAY_COMPS || ENABLE_DEMO_EBAY_COMPS },
     { label: "USPS smart templates page available", ok: true },

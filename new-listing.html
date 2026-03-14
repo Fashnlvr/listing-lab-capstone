@@ -53,8 +53,8 @@
 
   <main id="main-content" class="container py-4">
     <div class="row g-4">
-      <section class="col-12 col-xl-7">
-        <div class="card">
+      <section class="col-12 col-xl-7 d-flex">
+        <div class="card h-100 w-100">
           <div class="card-body">
             <h1 class="h4 mb-3">Create Listing</h1>
             <p class="small text-secondary">Completeness: <span id="completenessText">0/5</span></p>
@@ -191,17 +191,15 @@
                   <p class="small text-secondary mb-2">
                     Formula Pricing Helper: uses category, condition, and brand to suggest a practical range.
                   </p>
-                  <div class="row g-2 align-items-end mb-3">
-                    <div class="col-12 col-lg-3">
-                      <div class="d-grid gap-2">
-                        <button class="btn btn-outline-secondary" id="applyFormulaPriceBtn" type="button">Apply Formula Price</button>
-                      </div>
+                  <div class="row g-2 mb-3">
+                    <div class="col-12 col-lg-4 d-grid">
+                      <button class="btn btn-outline-secondary h-100" id="applyFormulaPriceBtn" type="button">Apply Formula Price</button>
                     </div>
-                    <div class="col-12 col-lg-9">
-                      <div class="d-flex flex-wrap gap-2">
-                        <button class="btn btn-outline-secondary" id="runCompSearchBtn" type="button">Search eBay Comps</button>
-                        <button class="btn btn-outline-secondary" id="applyCompPriceBtn" type="button">Apply Comp Price</button>
-                      </div>
+                    <div class="col-12 col-lg-4 d-grid">
+                      <button class="btn btn-outline-secondary h-100" id="runCompSearchBtn" type="button">Search eBay Comps</button>
+                    </div>
+                    <div class="col-12 col-lg-4 d-grid">
+                      <button class="btn btn-outline-secondary h-100" id="applyCompPriceBtn" type="button">Apply Comp Price</button>
                     </div>
                   </div>
                   <p id="formulaStatus" class="small text-secondary mt-2 mb-2" role="status" aria-live="polite"></p>
@@ -247,10 +245,10 @@
         </div>
       </section>
 
-      <aside class="col-12 col-xl-5">
-        <div class="card h-100">
+      <aside class="col-12 col-xl-5 d-flex">
+        <div class="card h-100 w-100">
           <div class="card-body d-flex flex-column">
-            <h2 class="h5">Live Preview</h2>
+            <h2 class="h4 mb-3">Live Preview</h2>
             <div class="preview-photo-grid mb-3">
               <div class="placeholder-photo" id="listingPhotoPlaceholder1" role="img" aria-label="Listing preview image 1">
                 <img id="listingPreviewImage1" class="d-none" alt="Auto-selected preview image 1 based on listing details" />

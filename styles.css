@@ -57,7 +57,7 @@ a:hover {
 
 .placeholder-photo {
   width: 100%;
-  aspect-ratio: 4 / 3;
+  min-height: 190px;
   border: 1px dashed #adb5bd;
   border-radius: 0.75rem;
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
@@ -91,19 +91,23 @@ a:hover {
 
 .preview-photo-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr !important;
   gap: 0.5rem;
+  width: 100%;
 }
 
-@media (min-width: 768px) {
-  .preview-photo-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
+.preview-photo-grid .placeholder-photo {
+  width: 100%;
+  max-width: 100%;
 }
 
 pre {
   white-space: pre-wrap;
   word-break: break-word;
+}
+
+#exportPreview {
+  min-height: 300px;
 }
 
 .progress-bar {
@@ -167,4 +171,14 @@ pre {
 
 .navbar .menu-toggle::after {
   display: none;
+}
+
+footer .badge.text-bg-dark {
+  font-size: 0.9rem;
+  padding: 0.45rem 0.75rem;
+}
+
+footer li[aria-label="Social media icons (not linked)"] {
+  font-size: 1.35rem !important;
+  margin-top: 0.35rem;
 }
